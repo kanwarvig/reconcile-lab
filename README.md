@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`. The guided sequence is:
+Open `http://localhost:3000`. The overview introduces the controlled systems and starts the guided run. The console has four real routes: `/` for orientation, `/workbench` for staged operations, `/records` for row-level inspection, and `/history` for audit and replay evidence. The guided sequence is:
 
 1. Inspect mapping — parses the messy CSV, infers aliases, identifies schema drift, and quarantines malformed input.
 2. Start staged import — paginates in batches of three, handles an injected 429 with backoff, then pauses after a destination write but before checkpoint acknowledgement.
@@ -62,7 +62,9 @@ Set `PLAYWRIGHT_BASE_URL=https://<exact-alias>` to run the same browser flow aga
 - `src/lib/contracts.ts` — typed boundary and state contracts.
 - `src/lib/engine.ts` — configurable mapping, import, recovery, sync, conflict, and reconciliation logic.
 - `src/lib/fixtures.ts` and `src/lib/deltas.json` — raw inputs only; no scripted outputs.
-- `src/app/page.tsx` — guided workbench and browser persistence.
+- `src/components/app-shell.tsx` — shared navigation, persistent run state, and current action.
+- `src/components/ops-pages.tsx` — overview, layered run workspace, record explorer, and audit history.
+- `src/app/*/page.tsx` — independently loadable application routes.
 - `tests/e2e/recovery.spec.ts` — browser → persistence → engine → UI restart proof.
 - `docs/ARCHITECTURE.md`, `docs/ADR-001-browser-engine.md`, `docs/RUNBOOK.md` — design and operations evidence.
 
